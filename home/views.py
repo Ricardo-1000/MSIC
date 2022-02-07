@@ -148,14 +148,42 @@ def returnbooksubmission(request):
             Return= ReturnBook.objects.all()
             return render(request,'returnbook.html',{'Return':Return})
     return redirect('/')
-def Search(request):
+def Search1(request):
     if request.session.has_key('is_logged'):
-        query2=request.GET["query2"]
-        Book=AddBook.objects.filter(keywords__icontains=query2)
-
-        params={'Book':Book}
-        return render(request,'dashboard.html',params)
-    return redirect("login") 
+        query2 = request.GET["query2"]
+        Book = AddBook.objects.filter(author__icontains=query2)
+        params = {'Book': Book}
+        return render(request, 'dashboard.html', params)
+    return redirect("login")
+def Search2(request):
+    if request.session.has_key('is_logged'):
+        query3 = request.GET["query3"]
+        Book = AddBook.objects.filter(publishinghouse__icontains=query3)
+        params = {'Book': Book}
+        return render(request, 'dashboard.html', params)
+    return redirect("login")
+def Search3(request):
+    if request.session.has_key('is_logged'):
+        query4 = request.GET["query4"]
+        Book = AddBook.objects.filter(subject__icontains=query4)
+        params = {'Book': Book}
+        return render(request, 'dashboard.html', params)
+    return redirect("login")
+def Search4(request):
+    if request.session.has_key('is_logged'):
+        query5 = request.GET["query5"]
+        Book = AddBook.objects.filter(keywords__icontains=query5)
+        params = {'Book': Book}
+        return render(request, 'dashboard.html', params)
+    return redirect("login")
+def SearchYear(request):
+    if request.session.has_key('is_logged'):
+        query6 = request.GET["query6"]
+        query7 = request.GET["query7"]
+        Book = AddBook.objects.filter(year__gte=query6,year__lte=query7)
+        params = {'Book': Book}
+        return render(request, 'dashboard.html', params)
+    return redirect("login")
 def editbookdetails(request,id):
     if request.session.has_key('is_logged'):
         Book = AddBook.objects.get(id=id)
